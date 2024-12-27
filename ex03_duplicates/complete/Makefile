@@ -1,10 +1,10 @@
-test:
-	@$(MAKE) -sk test-all
+score:
+	@$(MAKE) -sk score_all
 
-test-all: test-unit_duplicates
+score_all: score_unit_duplicates
 
-test-unit_duplicates: unit_duplicates
-	./test_unit_duplicates.sh
+score_unit_duplicates: unit_duplicates
+	./score_unit_duplicates.sh
 
 all: unit_duplicates time_duplicates
 

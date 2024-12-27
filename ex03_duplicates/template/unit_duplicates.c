@@ -1,19 +1,20 @@
 #include "duplicates.h"
+#include "unit_assert.h"
 #include <stdio.h>
-#include <assert.h>
+// #include <assert.h>
 
 int array_nodup[4] = {0, 1, 2, 3};
 int array_dup[4]   = {0, 1, 2, 2};
 
 int test_00_has_duplicates_slow() {
-    assert(has_duplicates_slow(array_dup, 4) == true);
-    assert(has_duplicates_slow(array_nodup, 4) == false);
+    unit_assert(has_duplicates_slow(array_dup, 4) == true);
+    unit_assert(has_duplicates_slow(array_nodup, 4) == false);
     return EXIT_SUCCESS;
 }
 
 int test_01_has_duplicates_fast() {
-    assert(has_duplicates_fast(array_dup, 4) == true);
-    assert(has_duplicates_fast(array_nodup, 4) == false);
+    unit_assert(has_duplicates_fast(array_dup, 4) == true);
+    unit_assert(has_duplicates_fast(array_nodup, 4) == false);
     return EXIT_SUCCESS;
 }
 
@@ -34,5 +35,7 @@ int main(int argc, char *argv[]) {
         case 1: status = test_01_has_duplicates_fast(); break;
         default: fprintf(stderr, "Unknown NUMBER: %d\n", number); break;
     }
+    if (status == EXIT_SUCCESS)
+        printf("Unit test passed\n");
     return status;
 }

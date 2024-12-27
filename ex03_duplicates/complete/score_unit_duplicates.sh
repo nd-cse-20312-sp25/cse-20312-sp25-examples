@@ -3,8 +3,8 @@
 PROGRAM=unit_duplicates
 UNIT=./$PROGRAM
 WORKSPACE=/tmp/$PROGRAM.$(id -u)
-POINTS=5
-VALGRIND_POINTS=1
+POINTS=80
+VALGRIND_POINTS=20
 FAILURES=0
 
 error() {
@@ -38,7 +38,6 @@ echo "Testing basic functionality (without valgrind)"
 TESTS=$($UNIT 2>&1 | tail -n 1 | awk '{print $1}')
 for t in $(seq 0 $TESTS); do
     # Need exit to accommodate tests 10 and 11 to print first occurence only
-    # desc=$($UNIT 2>&1 | awk "/$t/ { print \$3 }")
     desc=$($UNIT 2>&1 | awk "/$t/ { print \$3; exit }")
 
     printf " %-40s ... " "$desc"
