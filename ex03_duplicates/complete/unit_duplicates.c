@@ -1,7 +1,6 @@
 #include "duplicates.h"
 #include "unit_assert.h"
 #include <stdio.h>
-// #include <assert.h>
 
 int array_nodup[4] = {0, 1, 2, 3};
 int array_dup[4]   = {0, 1, 2, 2};
