@@ -9,10 +9,10 @@ int main()
     char char_array[4];
     int  int_array[4];
 
-    printf("Address of char_1:         %p\n", &char_v1);
-    printf("Address of int_1:          %p\n", &int_v1);
-    printf("Address of char_2:         %p\n", &char_v2);
-    printf("Address of int_2:          %p\n", &int_v2);
+    printf("Address of char_v1:        %p\n", &char_v1);
+    printf("Address of int_v1:         %p\n", &int_v1);
+    printf("Address of char_v2:        %p\n", &char_v2);
+    printf("Address of int_v2:         %p\n", &int_v2);
     printf("Address of char_array[0]:  %p\n", &char_array[0]);
     printf("Address of char_array[1]:  %p\n", &char_array[1]);
     printf("Address of int_array[0]:   %p\n", &int_array[0]);

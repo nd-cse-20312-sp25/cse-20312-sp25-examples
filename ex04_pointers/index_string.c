@@ -2,7 +2,7 @@
 
 int main()
 {
-    char *s = "abcde";
+    char s[] = "abcde";
 
     // Keep going while s[i] != 0 (false)
     for (int i = 0;  s[i];  i++) {

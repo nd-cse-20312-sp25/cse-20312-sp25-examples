@@ -14,13 +14,13 @@ int main(int argc, char *argv[]) {
 
     puts("----------------stack----------------");
     printf("   a: Address: %p, Size: %lu\n",  &a, sizeof( a));  // stack
-    printf(" &p2: Address: %p, Size: %lu\n",  &p, sizeof(&p));  // stack
+    printf("  &p: Address: %p, Size: %lu\n",  &p, sizeof(&p));  // stack
     printf("  &s: Address: %p, Size: %lu\n",  &s, sizeof(&s));  // stack
     printf("   x: Address: %p, Size: %lu\n",  &x, sizeof( x));  // stack
     puts("----------------heap----------------");
     printf("   p: Address: %p, Size: %lu\n",   p, sizeof( p)); // heap
     puts("----------------data----------------");
-    printf("   t: Address: %p, Size: %lu\n",  &t, sizeof(t));   // data
+    printf("   t: Address: %p, Size: %lu\n",  &t, sizeof( t));   // data
     printf("   G: Address: %p, Size: %lu\n",  &G, sizeof( G));  // data
     printf("   s: Address: %p, Size: %lu\n",   s, sizeof( s));  // data
     printf("  *s: Address: %p, Size: %lu\n", &*s, sizeof(*s));  // data (same as s)
