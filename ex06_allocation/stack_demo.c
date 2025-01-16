@@ -1,25 +1,24 @@
 #include <stdio.h>
 
-int f1(int x);
-int f2(int x);
-int f3(int x);
+int  f1(int x);
+int  f2(int x);
+void f3(int *x);
 
 int f1(int x) {
     int result;
-    result = 1 * f2(x);
+    result = 1 + f2(x);
     return result;
 }
 
 int f2(int x) {
     int result;
-    result = 2 * f3(x);
+    f3(&x);
+    result = 2 + x;
     return result;
 }
 
-int f3(int x) {
-    int result;
-    result = 3 * x;
-    return result;
+void f3(int *x) {
+    *x = 3 + *x;
 }
 
 int main() {
