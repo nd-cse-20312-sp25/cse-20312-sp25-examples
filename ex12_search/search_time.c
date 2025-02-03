@@ -5,13 +5,13 @@
 // Linear congruential random number generator
 // Constants from Kernighan & Ritchie, C Programming Language
 int lcrng(int nbits, int reset) {
-    static int lfsr = 1;
+    static int rnd = 1;
     if (reset) {
-        lfsr = 1;
+        rnd = 1;
     } else {
-        lfsr = (lfsr * 1103515245 + 12345) & ((1U << nbits) - 1);
+        rnd = (rnd * 1103515245 + 12345) & ((1U << nbits) - 1);
     }
-    return lfsr;
+    return rnd;
 }
 
 // Linear search, verbatim from zyBook
