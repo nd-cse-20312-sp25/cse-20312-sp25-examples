@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/recursive_functions",
-            "args": [],
+            "args": ["0"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
