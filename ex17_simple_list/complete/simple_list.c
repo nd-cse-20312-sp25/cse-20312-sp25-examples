@@ -4,18 +4,21 @@
 typedef struct Node Node;
 struct Node {
     int value;    // Value associated with Node
-    Node *next;  // Pointer to next Node in List
+    Node *next;   // Pointer to next Node in List
 };
 
-Node *node_create(int value, Node *next) {
+Node *list_add_head(Node *head, int value) {
     Node *n = malloc(sizeof(Node));
     n->value = value;
-    n->next = next;
+    n->next = head;
     return n;
 }
 
-void node_delete(Node *n) {
+Node *list_remove_head(Node *head) {
+    Node *n = head;
+    head = head->next;
     free(n);
+    return head;
 }
 
 void list_print_iterative(Node *head) {
@@ -29,28 +32,21 @@ void list_delete_iterative(Node *head) {
     while (head != NULL) {
         Node *n = head;
         head = head->next;
-        node_delete(n);
+        free(n);
     }
 }
 
 void list_add_after(Node *curr, int value) {
-    curr->next = node_create(value, curr->next);
+    Node *n = malloc(sizeof(Node));
+    n->value = value;
+    n->next = curr->next;
+    curr->next = n;
 }
 
 void list_remove_after(Node *curr) {
     Node *successor = curr->next->next;
-    node_delete(curr->next);
+    free(curr->next);
     curr->next = successor;
-}
-
-void list_add_head(Node **head, int value) {
-    *head = node_create(value, *head);
-}
-
-void list_remove_head(Node **head) {
-    Node *n = *head;
-    *head = (*head)->next;
-    node_delete(n);
 }
 
 void list_print_recursive(Node *head) {
@@ -81,20 +77,20 @@ void list_delete_recursive(Node *head) {
     }
 
     list_delete_recursive(head->next);
-    node_delete(head);
+    free(head);
 }
 
 int main() {
     Node *head = NULL;
 
-    puts("Manually add a few nodes at head of list");
-    head = node_create(1, head);
+    puts("Add a few nodes at head of list");
+    head = list_add_head(head, 1);
     printf("%d\n", head->value);
 
-    head = node_create(2, head);
+    head = list_add_head(head, 2);
     printf("%d %d\n", head->value, head->next->value);
 
-    head = node_create(3, head);
+    head = list_add_head(head, 3);
     printf("%d %d %d\n", head->value, head->next->value, head->next->next->value);
 
     puts("list_print_iterative(head)");
@@ -106,12 +102,12 @@ int main() {
     puts("\nhead = NULL");
     head = NULL;
 
-    puts("\nhead = node_create(1, head)");
-    head = node_create(1, head);
+    puts("\nhead = list_add_head(head, 1)");
+    head = list_add_head(head, 1);
     list_print_iterative(head);
 
-    puts("\nhead = node_create(2, head)");
-    head = node_create(2, head);
+    puts("\nhead = list_add_head(head, 2)");
+    head = list_add_head(head, 2);
     list_print_iterative(head);
 
     puts("\nlist_add_after(head, 99)");
@@ -122,16 +118,16 @@ int main() {
     list_remove_after(head);
     list_print_iterative(head);
 
-    puts("\nlist_add_head(&head, 55)");
-    list_add_head(&head, 55);
+    puts("\nlist_add_head(head, 55)");
+    head = list_add_head(head, 55);
     list_print_iterative(head);
 
-    puts("\nlist_remove_head(&head)");
-    list_remove_head(&head);
+    puts("\nlist_remove_head(head)");
+    head = list_remove_head(head);
     list_print_iterative(head);
 
-    puts("\nlist_add_head(&head, 3)");
-    list_add_head(&head, 3);
+    puts("\nlist_add_head(head, 3)");
+    head = list_add_head(head, 3);
     list_print_iterative(head);
 
     puts("\nprint_list_recursive");
