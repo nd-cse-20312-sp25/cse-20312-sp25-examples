@@ -2,15 +2,15 @@ CC= gcc
 CFLAGS= -Wall -g -std=gnu99
 LD= gcc
 LDFLAGS=
-TARGETS= map_demo
+TARGETS= hash_table_demo
 
 all: $(TARGETS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-map_demo: pair.o hash.o map.o map_demo.o
+hash_table_demo: pair.o hash.o table.o hash_table_demo.o
 	$(LD) $(LDFLAGS) -o $@ $^
 
 clean:
-	rm -f map_demo *.o
+	rm -f hash_table_demo *.o

@@ -1,4 +1,4 @@
-#include "map.h"
+#include "table.h"
 #include "hash.h"
 #include <stdio.h>
 #include <string.h>
@@ -22,42 +22,43 @@ int main() {
     char *key;
     int  value;
 
-    Map *map = map_create();
+    Table *table = table_create();
 
     usage();
     while (!done) {
-        printf("\nhash_demo> ");
+        printf("\nhash_table_demo> ");
         fgets(line, 80, stdin);
         command = strtok(line, delim);
+        if (!command) continue;
         if (*command == 'q') {
             done = 1;
         }
         else if (*command == 'i') {
             key = strtok(NULL, delim);
             value = atoi(strtok(NULL, delim));
-            map_insert(map, key, value);
-            map_print(map);
+            table_insert(table, key, value);
+            table_print(table);
         }
         else if (*command == 'l') {
             key = strtok(NULL, delim);
-            value = map_lookup(map, key);
+            value = table_lookup(table, key);
             printf("%s: %d\n", key, value);
         }
         else if (*command == 'h') {
             key = strtok(NULL, delim);
             int h = hash(key);
-            printf("hash(%s) = %d   hash(%s) %% %d = %d\n", key, h, key, map->capacity, h % map->capacity);
+            printf("hash(%s) = %d   hash(%s) %% %d = %d\n", key, h, key, table->capacity, h % table->capacity);
         }
         else if (*command == 'a') {
-            printf("alpha = %f\n", (float) map->size / map->capacity);
+            printf("alpha = %f\n", (float) table->size / table->capacity);
         }
         else if (*command == 'p') {
-            map_print(map);
+            table_print(table);
         }
         else {
             usage();
         }
     }
 
-    map_delete(map);
+    table_delete(table);
 }
