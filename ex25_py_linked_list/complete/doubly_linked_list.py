@@ -89,12 +89,10 @@ class DoublyLinkedList:
     # Supports the following syntax to convert a list to a string:  str(dll)
     def __str__(self):
         # TODO:
-        lst = []
-        node = self.head.next
-        while node != self.tail:
-            lst.append(str(node.data))
-            node = node.next
-        return ' '.join(lst)
+        string = ''
+        for i in self:
+            string = string + str(i) + ' '
+        return string.strip()
 
     # Return True if the list is not empty
     # Supports the if dll: syntax to check if the list is not empty
