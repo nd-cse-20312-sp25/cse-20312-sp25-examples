@@ -10,7 +10,9 @@ class TestDoublyLinkedList(unittest.TestCase):
         dll._insert_after(dll.head, 1)
         dll._insert_after(dll.head.next, 3)
         dll._insert_after(dll.head.next, 2)
-        self.assertEqual(str(dll), "1 2 3")
+        self.assertEqual(dll.head.next.data, 1)
+        self.assertEqual(dll.head.next.next.data, 2)
+        self.assertEqual(dll.head.next.next.next.data, 3)
 
     def test_pop_node(self):
         dll = DoublyLinkedList()
@@ -20,13 +22,14 @@ class TestDoublyLinkedList(unittest.TestCase):
         self.assertEqual(dll._pop_node(dll.head.next.next), 2)
         self.assertEqual(dll._pop_node(dll.tail.prev), 3)
         self.assertEqual(dll._pop_node(dll.head.next), 1)
-        self.assertEqual(str(dll), "")
+        self.assertEqual(dll.head.next, dll.tail)
             
     def test_append(self):
         dll = DoublyLinkedList()
         dll.append(1)
         dll.append(2)
-        self.assertEqual(str(dll), "1 2")
+        self.assertEqual(dll.head.next.data, 1)
+        self.assertEqual(dll.tail.prev.data, 2)
 
     def test_insert(self):
         dll = DoublyLinkedList()
@@ -35,7 +38,11 @@ class TestDoublyLinkedList(unittest.TestCase):
         dll.insert(1, 2)
         dll.insert(0, 0)
         dll.insert(4, 4)
-        self.assertEqual(str(dll), "0 1 2 3 4")
+        self.assertEqual(dll.head.next.data, 0)
+        self.assertEqual(dll.head.next.next.data, 1)
+        self.assertEqual(dll.head.next.next.next.data, 2)
+        self.assertEqual(dll.head.next.next.next.next.data, 3)
+        self.assertEqual(dll.tail.prev.data, 4)
 
     def test_pop(self):
         dll = DoublyLinkedList()
@@ -44,14 +51,15 @@ class TestDoublyLinkedList(unittest.TestCase):
         self.assertEqual(dll.pop(2), 2)
         self.assertEqual(dll.pop(0), 0)
         self.assertEqual(dll.pop(2), 4)
-        self.assertEqual(str(dll), "1 3")
+        self.assertEqual(dll.head.next.data, 1)
+        self.assertEqual(dll.tail.prev.data, 3)
 
     def test_clear(self):
         dll = DoublyLinkedList()
         dll.append(1)
         dll.append(2)
         dll.clear()
-        self.assertEqual(str(dll), "")
+        self.assertEqual(dll.head.next, dll.tail)
 
     def test_index(self):
         dll = DoublyLinkedList()
@@ -67,7 +75,6 @@ class TestDoublyLinkedList(unittest.TestCase):
         dll.append(1)
         dll.append(2)
         dll.append(3)
-        dll
         self.assertEqual(str(dll), "1 2 3")
 
     def test_bool(self):

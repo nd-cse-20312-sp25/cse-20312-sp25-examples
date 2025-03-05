@@ -9,7 +9,7 @@ void usage() {
     puts("  (l)ookup key");
     puts("  (h)ash key");
     puts("  (p)rint");
-    puts("  (a)lpha");
+    puts("  load (f)actor");
     puts("  (q)uit");
     puts("");
 }
@@ -49,8 +49,8 @@ int main() {
             int h = hash(key);
             printf("hash(%s) = %d   hash(%s) %% %d = %d\n", key, h, key, table->capacity, h % table->capacity);
         }
-        else if (*command == 'a') {
-            printf("alpha = %f\n", (float) table->size / table->capacity);
+        else if (*command == 'f') {
+            printf("load factor = %f\n", (float) table->size / table->capacity);
         }
         else if (*command == 'p') {
             table_print(table);
