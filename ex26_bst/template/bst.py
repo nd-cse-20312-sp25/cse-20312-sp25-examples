@@ -25,6 +25,8 @@ class BSTree:
     def _insert(self, root, key):
         if root is None:
             pass
+        if key == root.key:
+            pass
         if key < root.key:
             pass
         else:
