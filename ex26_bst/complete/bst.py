@@ -25,10 +25,8 @@ class BSTree:
     def _insert(self, root, key):
         if root is None:
             return Node(key)
-        
         if key == root.key:
             return root
-        
         if key < root.key:
             root.left = self._insert(root.left, key)
         else:
@@ -37,20 +35,10 @@ class BSTree:
 
     # Magic method: check if the tree contains a key
     # Support for the 'in' operator
-    # def __contains__(self, key):
-    #     return self._search(self.root, key) is not None
-
     def __contains__(self, key):
         return self._search(self.root, key)
     
     # Helper function for contains
-    # def _search(self, root, key):
-    #     if root is None or root.key == key:
-    #         return root
-    #     if key < root.key:
-    #         return self._search(root.left, key)
-    #     return self._search(root.right, key)  
-
     def _search(self, root, key):
         if root is None:
             return False

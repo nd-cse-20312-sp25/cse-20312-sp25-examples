@@ -36,11 +36,13 @@ class BSTree:
     # Magic method: check if the tree contains a key
     # Support for the 'in' operator
     def __contains__(self, key):
-        return self._search(self.root, key) is not None
+        return self._search(self.root, key)
     
     # Helper function for contains
     def _search(self, root, key):
-        if root is None or root.key == key:
+        if root is None:
+            pass
+        if root.key == key:
             pass
         if key < root.key:
             pass
@@ -54,11 +56,10 @@ class BSTree:
     def _inorder(self, root):
         if not root:
             return []
-        if root:
-            pass
+        pass
 
     # Magic method: et the length of the tree 
-    # Suport for the len() function 
+    # Support for the len() function 
     def __len__(self):
         return self._len(self.root)
     
@@ -97,12 +98,15 @@ class BSTree:
         # Key is found
         else:
             # Node with only one child or leaf node: return the non-null child
+            # If the node has no children, return None
             if root.left is None:
                 pass
             if root.right is None:
                 pass
             
             # Node with two children: Get the inorder successor (smallest in the right subtree)
+            pass
+            # Delete the inorder successor
             pass
         return root
     

@@ -4,17 +4,17 @@ import unittest
 from bst import BSTree, Node
 
 class BstTest(unittest.TestCase):
-    '''
-    Sample tree used in many of the tests
-
-     ____30___
-    /         \
-   10         _50___
-     \       /      \
-      20    40      _70
-                   /
-                  60
-    '''
+#     '''
+#     Sample tree used in many of the tests
+#
+#      ____30___
+#     /         \
+#    10         _50___
+#      \       /      \
+#       20    40      _70
+#                    /
+#                   60
+#     '''
     sample_bst = BSTree(Node(
                 30, 
                 Node(
