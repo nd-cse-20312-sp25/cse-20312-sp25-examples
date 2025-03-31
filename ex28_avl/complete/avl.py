@@ -19,20 +19,27 @@ class AVLTree:
 
     # Helper function to get the height of a node for AVL balancing
     # Note: The height of a null node is -1
-    def _get_height(self, root):
-        if not root:
+    def _get_height(self, node):
+        if not node:
             return -1
-        return root.height
-
+        return node.height
+    
+    # Helper function to update the height of a node
+    def _update_height(self, node):
+        # TODO
+        if node:
+            node.height = 1 + max(self._get_height(node.left), self._get_height(node.right))
+    
     # Helper function to get the balance factor of a node
     # Note: The balance factor of a null node is 0
-    def _get_balance(self, root):
-        if not root:
+    def _balance_factor(self, node):
+        # TODO
+        if not node:
             return 0
-        return self._get_height(root.left) - self._get_height(root.right)
-    
+        return self._get_height(node.left) - self._get_height(node.right)
+
     # Helper functions to rotate left for AVL balancing
-    def _left_rotate(self, z):
+    def _rotate_left(self, z):
         """
         Example:
             Given the following tree:
@@ -49,6 +56,7 @@ class AVLTree:
            / \
           T1  T2
         """
+        # TODO
         # Do the rotation
         y = z.right
         T2 = y.left
@@ -57,14 +65,14 @@ class AVLTree:
         z.right = T2
 
         # Update the heights
-        z.height = 1 + max(self._get_height(z.left), self._get_height(z.right))
-        y.height = 1 + max(self._get_height(y.left), self._get_height(y.right))
+        self._update_height(z)
+        self._update_height(y)
 
         # Return the new root
         return y
 
     # Helper functions to rotate right for AVL balancing
-    def _right_rotate(self, z):
+    def _rotate_right(self, z):
         """
         Example:
             Given the following tree:
@@ -89,61 +97,32 @@ class AVLTree:
         z.left = T2
 
         # Update the heights
-        z.height = 1 + max(self._get_height(z.left), self._get_height(z.right))
-        y.height = 1 + max(self._get_height(y.left), self._get_height(y.right))
+        self._update_height(z)
+        self._update_height(y)
 
         # Return the new root
         return y
 
-    # Helper function to rebalance the tree after insertion or removal
-    def _rebalance(self, root, key):
-        # root: root of the tree
-        # key: key of the node that was inserted or removed
-        balance = self._get_balance(root)
+    def _balance(self, node):
+        # TODO
+        # update height
+        self._update_height(node)
 
-        # Case 1 - Left Left
-        #     3 (root)
-        #    /
-        #   2
-        #  /
-        # 1 (key)
-        if balance > 1 and key < root.left.key:
-            print(f"Left Left at {root.key}")
-            return self._right_rotate(root)
-        
-        # Case 2 - Right Right
-        # 1 (root)
-        #  \
-        #   2
-        #    \
-        #     3 (key)
-        if balance < -1 and key > root.right.key:
-            print(f"Right Right at {root.key}")
-            return self._left_rotate(root)
-        
-        # Case 3 - Left Right
-        #   __3 (root)
-        #  /
-        # 1
-        #  \
-        #   2 (key)
-        if balance > 1 and key > root.left.key:
-            print(f"Left Right at {root.key}")
-            root.left = self._left_rotate(root.left)
-            return self._right_rotate(root)
-        
-        # Case 4 - Right Left
-        # 1__ (root)
-        #    \
-        #     3
-        #    /
-        #   2 (key)
-        if balance < -1 and key < root.right.key:
-            print(f"Right Left at {root.key}")
-            root.right = self._right_rotate(root.right)
-            return self._left_rotate(root)
+        # left heavy
+        if self._balance_factor(node) > 1:
+            # left child is right heavy
+            if self._balance_factor(node.left) < 0:
+                node.left = self._rotate_left(node.left)
+            return self._rotate_right(node)
 
-        return root
+        # right heavy
+        if self._balance_factor(node) < -1:
+            # right child is left heavy
+            if self._balance_factor(node.right) > 0:
+                node.right = self._rotate_right(node.right)
+            return self._rotate_left(node)
+
+        return node
 
     # Insert a Node with a given key into the tree
     def insert(self, key):
@@ -163,11 +142,8 @@ class AVLTree:
         else:
             root.right = self._insert(root.right, key)
 
-        # Update the height of the current node
-        root.height = 1 + max(self._get_height(root.left), self._get_height(root.right))
-
-        # Rebalance the tree
-        return self._rebalance(root, key)
+        # TODO: Balance tree before returning
+        return self._balance(root)
     
     # Remove a Node with a given key from the tree  
     def remove(self, key):
@@ -199,15 +175,12 @@ class AVLTree:
             # Delete the inorder successor
             root.right = self._remove(root.right, root.key)
 
-        # Update the height of the current node      
-        root.height = 1 + max(self._get_height(root.left), self._get_height(root.right))
-
-        # Rebalance the tree
-        return self._rebalance(root, key)
+        # TODO: Balance tree before returning
+        return self._balance(root)
     
     # Helper function to find the minimum value node in a tree
-    def _min_value_node(self, root):
-        current = root
+    def _min_value_node(self, node):
+        current = node
         while current.left is not None:
             current = current.left
         return current.key

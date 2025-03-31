@@ -55,6 +55,7 @@ pass
 # Iterate over the linked list using a while loop and generator
 print()
 print("Iterate using while loop and generator:")
+# TODO
 iterator = None
 print(f"type(iterator): {type(iterator)}")
 # TODO

@@ -1,6 +1,7 @@
 # Example of a generator function that generates the first n numbers
 # The use of yield makes this a generator function
 def firstn(n):
+    # TODO
     num = 0
     while num < n:
         yield num

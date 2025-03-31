@@ -28,10 +28,12 @@ class LinkedList:
         return str(current.data) + ' ' + self.recursive_function(current.next)
 
     def __iter__(self):
+        # TODO
         return self.recursive_generator(self.head)
     
     # Generator function recursively yields the elements of the linked list
     def recursive_generator(self, current):
+        # TODO
         if not current:
             return
         

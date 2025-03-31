@@ -22,7 +22,41 @@ class AvlTest(unittest.TestCase):
         avl = AVLTree(root)
         self.assertEqual(avl.root, root)
 
-    def test_left_rotate(self):
+    def test_get_height(self):
+        avl = AVLTree()
+        self.assertEqual(avl._get_height(avl.root), -1)
+
+    def test_update_height(self):
+        root = Node(20)
+        avl = AVLTree(root)
+        avl._update_height(avl.root)
+        self.assertEqual(avl._get_height(avl.root), 0)
+        root.left = Node(10)
+        avl._update_height(avl.root)
+        self.assertEqual(avl._get_height(avl.root), 1)
+        root.right = Node(30)
+        avl._update_height(avl.root)
+        self.assertEqual(avl._get_height(avl.root), 1)
+        root.left = None
+        avl._update_height(avl.root)
+        self.assertEqual(avl._get_height(avl.root), 1)
+
+    def test_balance_factor(self):
+        root = Node(20)
+        avl = AVLTree(root)
+        avl._update_height(avl.root)
+        self.assertEqual(avl._balance_factor(avl.root), 0)
+        root.left = Node(10)
+        avl._update_height(avl.root)
+        self.assertEqual(avl._balance_factor(avl.root), 1)
+        root.right = Node(30)
+        avl._update_height(avl.root)
+        self.assertEqual(avl._balance_factor(avl.root), 0)
+        root.left = None
+        avl._update_height(avl.root)
+        self.assertEqual(avl._balance_factor(avl.root), -1)
+
+    def test_rotate_left(self):
         # General case
         root = Node(4)
         root.left =  Node(2)
@@ -30,17 +64,17 @@ class AvlTest(unittest.TestCase):
         root.right.left =  Node(5)
         root.right.right = Node(7)
         avl = AVLTree(root)
-        avl.root = avl._left_rotate(avl.root)
+        avl.root = avl._rotate_left(avl.root)
         self.assertEqual(avl.write_bfs(), [6, 4, 7, 2, 5])
         # Right-right case
         root = Node(1)
         root.right = Node(2)
         root.right.right = Node(3)
         avl = AVLTree(root)
-        avl.root = avl._left_rotate(avl.root)
+        avl.root = avl._rotate_left(avl.root)
         self.assertEqual(avl.write_bfs(), [2, 1, 3])
 
-    def test_right_rotate(self):
+    def test_rotate_right(self):
         # General case
         root = Node(4)
         root.left =  Node(2)
@@ -48,17 +82,17 @@ class AvlTest(unittest.TestCase):
         root.left.left =  Node(1)
         root.left.right = Node(3)
         avl = AVLTree(root)
-        avl.root = avl._right_rotate(avl.root)
+        avl.root = avl._rotate_right(avl.root)
         self.assertEqual(avl.write_bfs(), [2, 1, 4, None, None, 3, 6])
         # Left-left case
         root = Node(3)
         root.left = Node(2)
         root.left.left = Node(1)
         avl = AVLTree(root)
-        avl.root = avl._right_rotate(avl.root)
+        avl.root = avl._rotate_right(avl.root)
         self.assertEqual(avl.write_bfs(), [2, 1, 3])
 
-    def test_rebalance(self):
+    def test_balance(self):
         # Left-left case
         #     3
         #    /
@@ -71,7 +105,7 @@ class AvlTest(unittest.TestCase):
         root.left.height = 1
         root.left.left = Node(1)
         avl = AVLTree(root)
-        avl.root = avl._rebalance(avl.root, 1)
+        avl.root = avl._balance(avl.root)
         self.assertEqual(avl.write_bfs(), [2, 1, 3])
 
         # Left-right case
@@ -86,7 +120,7 @@ class AvlTest(unittest.TestCase):
         root.left.height = 1
         root.left.right = Node(2)
         avl = AVLTree(root)
-        avl.root = avl._rebalance(avl.root, 2)
+        avl.root = avl._balance(avl.root)
         self.assertEqual(avl.write_bfs(), [2, 1, 3])
 
         # Right-right case
@@ -101,7 +135,7 @@ class AvlTest(unittest.TestCase):
         root.right.height = 1
         root.right.right = Node(3)
         avl = AVLTree(root)
-        avl.root = avl._rebalance(avl.root, 3)
+        avl.root = avl._balance(avl.root)
         self.assertEqual(avl.write_bfs(), [2, 1, 3])
 
         # Right-left case
@@ -116,7 +150,7 @@ class AvlTest(unittest.TestCase):
         root.right.height = 1
         root.right.left = Node(2)
         avl = AVLTree(root)
-        avl.root = avl._rebalance(avl.root, 2)
+        avl.root = avl._balance(avl.root)
         self.assertEqual(avl.write_bfs(), [2, 1, 3])
 
     def test_insert(self):
@@ -196,6 +230,27 @@ class AvlTest(unittest.TestCase):
         self.assertEqual(avl.root.right.key, 45)
         self.assertEqual(avl.root.right.left, None)
         self.assertEqual(avl.root.right.right.key, 50)
+        avl.clear()
+        # Check rebalancing resulting from remove
+        # Case: Right-Right
+        avl.insert(40)
+        avl.insert(20)
+        avl.insert(60)
+        avl.insert(70)
+        avl.remove(20)
+        self.assertEqual(avl.root.key, 60)
+        self.assertEqual(avl.root.left.key, 40)
+        self.assertEqual(avl.root.right.key, 70)
+        avl.clear()
+        # Case: Right-Left
+        avl.insert(40)
+        avl.insert(20)
+        avl.insert(60)
+        avl.insert(55)
+        avl.remove(20)
+        self.assertEqual(avl.root.key, 55)
+        self.assertEqual(avl.root.left.key, 40)
+        self.assertEqual(avl.root.right.key, 60)
 
     def test_write_bfs(self):
         avl = AVLTree()

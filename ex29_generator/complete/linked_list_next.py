@@ -22,16 +22,19 @@ class LinkedList:
     
     # Function recursively returns a string representation of the linked list
     def recursive_function(self, current):
+        # TODO
         if not current:
             return ''
         
         return str(current.data) + ' ' + self.recursive_function(current.next)
 
     def __iter__(self):
+        # TODO
         self.current = self.head
         return self
 
     def __next__(self):
+        # TODO
         if not self.current:
             raise StopIteration
         else:
@@ -55,14 +58,17 @@ print(lst)
 # Iterate over the linked list using a for loop
 print()
 print("Iterate using for loop:")
+# TODO
 for i in lst:
     print(i)
 
 # Iterate over the linked list using a while loop and generator
 print()
 print("Iterate using while loop and generator:")
+# TODO
 iterator = iter(lst)
 print(f"type(iterator): {type(iterator)}")
+# TODO
 while True:
     try:
         print(next(iterator))
@@ -73,5 +79,6 @@ while True:
 # Convert the linked list to a list
 print()
 print("Convert iterable to list: list(lst)")
+# TODO
 print(list(lst))
 
