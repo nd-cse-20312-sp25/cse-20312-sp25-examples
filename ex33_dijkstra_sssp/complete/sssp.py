@@ -6,7 +6,7 @@ Example of Dijkstra's algorithm for single source shortest path.
 '''
 
 import collections
-import heapq
+from  heapq import heappush, heappop
 import sys
 
 # Types
@@ -52,11 +52,11 @@ def compute_sssp(graph: Graph, start: str) -> dict[str, int]:
     visited: dict[str, int] = {}
 
     # use heap to implement frontier priority queue
-    heapq.heappush(frontier, (0, start))
+    heappush(frontier, (0, start))
 
     while frontier:
         # pop total_distance, vertex from frontier
-        total_distance, vertex = heapq.heappop(frontier)
+        total_distance, vertex = heappop(frontier)
 
         # if vertex in visited, continue to next iteration
         if vertex in visited:
@@ -68,7 +68,7 @@ def compute_sssp(graph: Graph, start: str) -> dict[str, int]:
         # push each unvisited neighbor with its total_distance to frontier
         for neighbor, weight in graph[vertex].items():
             if neighbor not in visited:
-                heapq.heappush(frontier, (total_distance + weight, neighbor))
+                heappush(frontier, (total_distance + weight, neighbor))
 
     return visited
 
@@ -83,7 +83,7 @@ def main(stream=sys.stdin) -> None:
     visited = compute_sssp(graph, start)
 
     # Display Distances
-    for target in sorted((graph.keys()))[1:]:
+    for target in sorted(graph.keys())[1:]:
         print(f'{start} -> {target} = {visited[target]}')
 
 if __name__ == '__main__':

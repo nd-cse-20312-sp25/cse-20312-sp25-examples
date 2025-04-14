@@ -7,7 +7,7 @@ Revised version of Dijkstra's algorithm that returns the list of edges in the sh
 '''
 
 from collections import defaultdict
-import heapq
+from heapq import heappop, heappush
 import sys
 
 # Types
@@ -42,7 +42,7 @@ def compute_sssp(graph: Graph, origin: str) -> dict[str, str]:
 
     while frontier:
         # Pop the vertex with the smallest distance
-        distance, vertex, source = heapq.heappop(frontier)
+        distance, vertex, source = heappop(frontier)
 
         if vertex in visited:
             continue
@@ -54,7 +54,7 @@ def compute_sssp(graph: Graph, origin: str) -> dict[str, str]:
             if not neighbor in visited:
                 # Push the neighbor to the frontier as a tuple 
                 # (total distance from origin, vertex, predecessor)
-                heapq.heappush(frontier, (distance + weight, neighbor, vertex))
+                heappush(frontier, (distance + weight, neighbor, vertex))
 
     # Delete origin vertex from visited list to be returned
     del visited[origin]

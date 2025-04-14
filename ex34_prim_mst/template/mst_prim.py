@@ -8,7 +8,7 @@ Minimum Spanning Tree (MST) of a graph.
 '''
 
 from collections import defaultdict
-import heapq
+from heapq import heappop, heappush
 import sys
 
 # Types
@@ -44,7 +44,7 @@ def compute_mst(graph: Graph, origin: str) -> tuple[int, dict[str, str]]:
     total_weight = 0
 
     while frontier:
-        weight, vertex, source = heapq.heappop(frontier)
+        weight, vertex, source = heappop(frontier)
 
         if vertex in visited:
             continue

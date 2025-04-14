@@ -46,7 +46,7 @@ def compute_degrees(graph: Graph) -> dict[str, int]:
 
     for source, targets in graph.items():
         # If the source hasn't been seen yet,
-        # include it in the diectionary with a value of 0
+        # include it in the dictionary with a value of 0
         degrees[source]
         # For each target, increment the number of incoming edges
         for target in targets:
